@@ -1,0 +1,28 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: L2Storage
+    network: matic
+    source:
+      address: "0xf017D32e58C46FA7D42Cc26448FBed9271CC7750"
+      abi: L2Storage
+      startBlock: 52633867
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - GraphAddressChanged
+        - GraphTokenChanged
+      abis:
+        - name: L2Storage
+          file: ./abis/L2Storage.json
+      eventHandlers:
+        - event: GraphAddressChanged(uint256,string,string)
+          handler: handleGraphAddressChanged
+        - event: GraphTokenChanged(uint256,string,string)
+          handler: handleGraphTokenChanged
+
+      file: ./src/l-2-storage.ts

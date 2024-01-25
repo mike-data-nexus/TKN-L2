@@ -1,0 +1,22 @@
+type Token @entity {
+  id: ID!
+  name: String
+  symbol: String
+  version: String
+  url: String
+  description: String
+  twitter: String
+  github: String
+  discord: String
+  avatar: String
+  tokenAddresses: [TokenAddress!]! @derivedFrom(field: "tokenId")
+  timestamp: BigInt
+}
+
+type TokenAddress @entity {
+  id: ID!
+  tokenId: Token
+  address: String
+  chainID: String
+  chainVersion: String
+}
