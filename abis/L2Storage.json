@@ -4,6 +4,37 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "addressId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddressDataChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "op",
@@ -17,131 +48,6 @@
       }
     ],
     "name": "AdminChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "node",
-        "type": "string"
-      },
-      {
-        "indexed": true,
-        "internalType": "string",
-        "name": "key",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "nonce",
-        "type": "uint256"
-      }
-    ],
-    "name": "DataChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "key",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes",
-        "name": "value",
-        "type": "bytes"
-      }
-    ],
-    "name": "GraphAddressBytesChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "key",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "value",
-        "type": "string"
-      }
-    ],
-    "name": "GraphAddressChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "key",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "bytes",
-        "name": "value",
-        "type": "bytes"
-      }
-    ],
-    "name": "GraphTokenBytesChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "key",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "value",
-        "type": "string"
-      }
-    ],
-    "name": "GraphTokenChanged",
     "type": "event"
   },
   {
@@ -164,31 +70,98 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "TokenDataChanged",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "addressId", "type": "uint256" },
       { "internalType": "string[]", "name": "keys", "type": "string[]" }
     ],
-    "name": "getBatchData",
+    "name": "getAddressBatchData",
     "outputs": [
       { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-      { "internalType": "bytes[]", "name": "vs", "type": "bytes[]" }
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
+      { "internalType": "uint256", "name": "addressId", "type": "uint256" },
       { "internalType": "string", "name": "key", "type": "string" }
     ],
-    "name": "getData",
-    "outputs": [{ "internalType": "bytes", "name": "v", "type": "bytes" }],
+    "name": "getAddressData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "string", "name": "node", "type": "string" }],
-    "name": "getNonce",
+    "inputs": [
+      { "internalType": "uint256", "name": "addressId", "type": "uint256" }
+    ],
+    "name": "getAddressNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getTokenBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getTokenData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+    ],
+    "name": "getTokenNonce",
     "outputs": [
       { "internalType": "uint256", "name": "nonce", "type": "uint256" }
     ],
@@ -222,6 +195,28 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256", "name": "addressId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setAddressData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "addressId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setAddressDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "op", "type": "address" },
       { "internalType": "bool", "name": "admin", "type": "bool" }
     ],
@@ -232,70 +227,32 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
-      { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "bytes", "name": "v", "type": "bytes" }
+      { "internalType": "address", "name": "op", "type": "address" },
+      { "internalType": "bool", "name": "manager", "type": "bool" }
     ],
-    "name": "setData",
+    "name": "setManager",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "bytes", "name": "v", "type": "bytes" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      { "internalType": "string", "name": "v", "type": "string" }
     ],
-    "name": "setDataWithGraphAddressData",
+    "name": "setTokenData",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
-      { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "bytes", "name": "v", "type": "bytes" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
     ],
-    "name": "setDataWithGraphTokenData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
-      { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "string", "name": "s", "type": "string" }
-    ],
-    "name": "setString",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
-      { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "string", "name": "s", "type": "string" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
-    ],
-    "name": "setStringWithGraphAddressData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "string", "name": "node", "type": "string" },
-      { "internalType": "string", "name": "key", "type": "string" },
-      { "internalType": "string", "name": "s", "type": "string" },
-      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
-    ],
-    "name": "setStringWithGraphTokenData",
+    "name": "setTokenDataBatch",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

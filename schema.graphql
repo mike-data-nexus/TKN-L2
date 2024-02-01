@@ -2,6 +2,7 @@ type Token @entity {
   id: ID!
   name: String
   symbol: String
+  decimals: String
   version: String
   url: String
   description: String
@@ -9,7 +10,17 @@ type Token @entity {
   github: String
   discord: String
   avatar: String
+  globalNamespace: String
+  tokenSupply: String
+  circulatingSupply: String
+  forum: String
+  governance: String
+  snapshot: String
+  abi: String
+  git: String
+
   tokenAddresses: [TokenAddress!]! @derivedFrom(field: "tokenId")
+  # timestamp for when the token was last updated
   timestamp: BigInt
 }
 
@@ -17,6 +28,23 @@ type TokenAddress @entity {
   id: ID!
   tokenId: Token
   address: String
-  chainID: String
+  nonEVMAddress: String
+  coinTypeID: String
+  chainID: Chain
   chainVersion: String
+}
+
+type Chain @entity {
+  id: ID!
+  name: String
+  symbol: String
+  version: String
+  url: String
+  description: String
+  twitter: String
+  github: String
+  discord: String
+  avatar: String
+  tokens: [TokenAddress!]! @derivedFrom(field: "chainID")
+  timestamp: BigInt
 }

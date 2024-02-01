@@ -1,6 +1,6 @@
 // Import types and APIs from graph-ts
 import { BigInt, Address, ethereum } from "@graphprotocol/graph-ts";
-import { Token, TokenAddress } from "../generated/schema";
+import { Token, TokenAddress, Chain } from "../generated/schema";
 
 export function GetOrCreateToken(
   tokenId: BigInt,
@@ -15,6 +15,20 @@ export function GetOrCreateToken(
   token.save();
 
   return token as Token;
+}
+
+export function GetOrCreateChain(
+  chainId: string,
+  block: ethereum.Block
+): Chain {
+  let chain = Chain.load(chainId);
+  if (!chain) chain = new Chain(chainId);
+
+  chain.timestamp = block.timestamp;
+
+  chain.save();
+
+  return chain as Chain;
 }
 
 //type TokenAddress @entity {

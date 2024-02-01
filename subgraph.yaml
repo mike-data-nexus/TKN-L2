@@ -2,27 +2,26 @@ specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum
+  - kind: ethereum/contract
     name: L2Storage
-    network: matic
+    network: celo
     source:
-      address: "0xf017D32e58C46FA7D42Cc26448FBed9271CC7750"
+      address: "0x4b11abe1979972e8bab60e560618565448a8470e"
       abi: L2Storage
-      startBlock: 52633867
+      startBlock: 23802894
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - GraphAddressChanged
-        - GraphTokenChanged
+        - AddressDataChanged
+        - TokenDataChanged
       abis:
         - name: L2Storage
           file: ./abis/L2Storage.json
       eventHandlers:
-        - event: GraphAddressChanged(uint256,string,string)
-          handler: handleGraphAddressChanged
-        - event: GraphTokenChanged(uint256,string,string)
-          handler: handleGraphTokenChanged
-
+        - event: AddressDataChanged(uint256,string,string,uint256)
+          handler: handleAddressDataChanged
+        - event: TokenDataChanged(uint256,string,string,uint256)
+          handler: handleTokenDataChanged
       file: ./src/l-2-storage.ts
