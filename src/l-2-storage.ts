@@ -68,6 +68,19 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
     token.snapshot = event.params.value;
   if (event.params.key.toString() == "abi") token.abi = event.params.value;
   if (event.params.key.toString() == "git") token.git = event.params.value;
+  if (event.params.key.toString() == "farcaster")
+    token.farcaster = event.params.value;
+  if (event.params.key.toString() == "farcasterChannel")
+    token.farcasterChannel = event.params.value;
+  if (event.params.key.toString() == "governanceContract")
+    token.governanceContract = event.params.value;
+  if (event.params.key.toString() == "notice")
+    token.notice = event.params.value;
+  if (event.params.key.toString() == "dweb") token.git = event.params.value;
+  if (event.params.key.toString() == "isChainWithChainID")
+    token.isChainWithChainID = event.params.value;
+  if (event.params.key.toString() == "isChainWithCoinType")
+    token.isChainWithCoinType = event.params.value;
 
   token.timestamp = event.block.timestamp;
 

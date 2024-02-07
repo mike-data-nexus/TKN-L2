@@ -18,6 +18,13 @@ type Token @entity {
   snapshot: String
   abi: String
   git: String
+  farcaster: String
+  farcasterChannel: String
+  governanceContract: String
+  notice: String
+  dweb: String
+  isChainWithChainID: String
+  isChainWithCoinType: String
 
   tokenAddresses: [TokenAddress!]! @derivedFrom(field: "tokenId")
   # timestamp for when the token was last updated
