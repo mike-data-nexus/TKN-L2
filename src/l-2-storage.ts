@@ -12,7 +12,7 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
   if (!tokenAddress) {
     tokenAddress = new TokenAddress(event.params.addressId.toString());
   }
-
+  let key = event.params.key.toString();
   if (event.params.key.toString() == "nonEVMAddress")
     tokenAddress.nonEVMAddress = event.params.value;
   if (event.params.key.toString() == "coinTypeID")
@@ -24,6 +24,22 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
   if (event.params.key.toString() == "chainID") {
     let chain = GetOrCreateChain(event.params.value, event.block);
     tokenAddress.chainID = chain.id;
+    if (event.params.key.toString() == "name") chain.name = event.params.value;
+    if (event.params.key.toString() == "symbol")
+      chain.symbol = event.params.value;
+    if (event.params.key.toString() == "version")
+      chain.version = event.params.value;
+    if (event.params.key.toString() == "url") chain.url = event.params.value;
+    if (event.params.key.toString() == "description")
+      chain.description = event.params.value;
+    if (event.params.key.toString() == "twitter")
+      chain.twitter = event.params.value;
+    if (event.params.key.toString() == "github")
+      chain.github = event.params.value;
+    if (event.params.key.toString() == "discord")
+      chain.discord = event.params.value;
+    if (event.params.key.toString() == "avatar")
+      chain.avatar = event.params.value;
   }
   if (event.params.key.toString() == "chainVersion")
     tokenAddress.chainVersion = event.params.value;
