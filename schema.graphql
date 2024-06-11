@@ -27,6 +27,7 @@ type Token @entity {
   isChainWithCoinType: String
   tokenAddresses: [TokenAddress!]! @derivedFrom(field: "tokenId")
   timestamp: BigInt
+  validation: [Validation!]! @derivedFrom(field: "tokenId")
 }
 
 type TokenAddress @entity {
@@ -38,6 +39,8 @@ type TokenAddress @entity {
   chainID: Chain
   chainVersion: String
   deprecated: Boolean
+  validation: [Validation!]! @derivedFrom(field: "addressId")
+  listMembership: [ListMembership!]! @derivedFrom(field: "tokenAddress")
 }
 
 type Chain @entity {
@@ -55,33 +58,38 @@ type User @entity {
   twitter: String
   telegram: String
   github: String
+  validation: [Validation!]! @derivedFrom(field: "userId")
+  listOwnership: [ListOwnership!]! @derivedFrom(field: "userId")
 }
 
 type List @entity {
   id: ID!
+  listId: List
   name: String
   description: String
   owner: String
   autopublish: Boolean
+  listOwnership: [ListOwnership!]! @derivedFrom(field: "listId")
+  listMembership: [ListMembership!]! @derivedFrom(field: "listId")
 }
 
 type ListMembership @entity {
   id: ID!
-  listID: [List!]! @derivedFrom(field: "id")
-  tokenID: [Token!]! @derivedFrom(field: "tokenID")
+  listId: List
+  tokenAddress: TokenAddress
 }
 
 type ListOwnership @entity {
   id: String!
-  listID: [List!]! @derivedFrom(field: "id")
-  userID: [User!]! @derivedFrom(from: "id")
+  listId: List
+  userId: User
 }
 
 type Validation @entity {
   id: ID!
-  tokenID: [Token!]! @derivedFrom(field: "tokenID")
-  addressID: [TokenAddress!]! @derivedFrom(field: "address")
-  userID: [User!]! @derivedFrom(from: "id")
+  tokenId: Token
+  addressId: TokenAddress
+  userId: User
   datakey: String
   assertion: String
   data: String
