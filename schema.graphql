@@ -25,9 +25,7 @@ type Token @entity {
   dweb: String
   isChainWithChainID: String
   isChainWithCoinType: String
-
   tokenAddresses: [TokenAddress!]! @derivedFrom(field: "tokenId")
-  # timestamp for when the token was last updated
   timestamp: BigInt
 }
 
@@ -39,19 +37,57 @@ type TokenAddress @entity {
   coinTypeID: String
   chainID: Chain
   chainVersion: String
+  deprecated: Boolean
 }
 
 type Chain @entity {
   id: ID!
-  name: String
-  symbol: String
-  version: String
-  url: String
-  description: String
-  twitter: String
-  github: String
-  discord: String
-  avatar: String
   tokens: [TokenAddress!]! @derivedFrom(field: "chainID")
   timestamp: BigInt
+}
+
+type User @entity {
+  id: ID!
+  name: String
+  address: String
+  email: String
+  discord: String
+  twitter: String
+  telegram: String
+  github: String
+}
+
+type List @entity {
+  id: ID!
+  name: String
+  description: String
+  owner: String
+  autopublish: Boolean
+}
+
+type ListMembership @entity {
+  id: ID!
+  listID: [List!]! @derivedFrom(field: "id")
+  tokenID: [Token!]! @derivedFrom(field: "tokenID")
+}
+
+type ListOwnership @entity {
+  id: String!
+  listID: [List!]! @derivedFrom(field: "id")
+  userID: [User!]! @derivedFrom(from: "id")
+}
+
+type Validation @entity {
+  id: ID!
+  tokenID: [Token!]! @derivedFrom(field: "tokenID")
+  addressID: [TokenAddress!]! @derivedFrom(field: "address")
+  userID: [User!]! @derivedFrom(from: "id")
+  datakey: String
+  assertion: String
+  data: String
+  farcasterFID: String
+  farcasterReputationScoreV1: String
+  farcasterCustodyAddress: String
+  farcasterVerifiedAddress: String
+  rewardTransactionHash: String
 }

@@ -54,6 +54,99 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "listId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "ListDataChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "ListMembershipChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "ListOwnershipChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "previousOwner",
@@ -101,6 +194,68 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "UserDataChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "validationId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "key",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "ValidationDataChanged",
+    "type": "event"
+  },
+  {
     "inputs": [
       { "internalType": "uint256", "name": "addressId", "type": "uint256" },
       { "internalType": "string[]", "name": "keys", "type": "string[]" }
@@ -136,6 +291,132 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256", "name": "listId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getListBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "listId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getListData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getListMembershipBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getListMembershipData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getListMembershipNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "listId", "type": "uint256" }
+    ],
+    "name": "getListNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getListOwnershipBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getListOwnershipData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getListOwnershipNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" },
       { "internalType": "string[]", "name": "keys", "type": "string[]" }
     ],
@@ -162,6 +443,74 @@
       { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
     "name": "getTokenNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "userId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getUserBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "userId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getUserData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "userId", "type": "uint256" }
+    ],
+    "name": "getUserNonce",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "validationId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" }
+    ],
+    "name": "getValidationBatchData",
+    "outputs": [
+      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
+      { "internalType": "string[]", "name": "vs", "type": "string[]" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "validationId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" }
+    ],
+    "name": "getValidationData",
+    "outputs": [{ "internalType": "string", "name": "v", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "validationId", "type": "uint256" }
+    ],
+    "name": "getValidationNonce",
     "outputs": [
       { "internalType": "uint256", "name": "nonce", "type": "uint256" }
     ],
@@ -227,6 +576,88 @@
   },
   {
     "inputs": [
+      { "internalType": "uint256", "name": "listId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setListData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "listId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setListDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setListMembershipData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listMembershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setListMembershipDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setListOwnershipData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "listOwnershipId",
+        "type": "uint256"
+      },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setListOwnershipDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "op", "type": "address" },
       { "internalType": "bool", "name": "manager", "type": "bool" }
     ],
@@ -253,6 +684,50 @@
       { "internalType": "string[]", "name": "values", "type": "string[]" }
     ],
     "name": "setTokenDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "userId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setUserData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "userId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setUserDataBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "validationId", "type": "uint256" },
+      { "internalType": "string", "name": "key", "type": "string" },
+      { "internalType": "string", "name": "v", "type": "string" }
+    ],
+    "name": "setValidationData",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "validationId", "type": "uint256" },
+      { "internalType": "string[]", "name": "keys", "type": "string[]" },
+      { "internalType": "string[]", "name": "values", "type": "string[]" }
+    ],
+    "name": "setValidationDataBatch",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

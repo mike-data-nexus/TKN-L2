@@ -6,9 +6,9 @@ dataSources:
     name: L2Storage
     network: celo
     source:
-      address: "0x4b11abe1979972e8bab60e560618565448a8470e"
+      address: "0x2e0d624A3D6d9E02C08Df30e3346E8B1350b53b5"
       abi: L2Storage
-      startBlock: 23802894
+      startBlock: 26067616
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -24,4 +24,18 @@ dataSources:
           handler: handleAddressDataChanged
         - event: TokenDataChanged(uint256,string,string,uint256)
           handler: handleTokenDataChanged
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: AdminChanged(indexed address,indexed bool)
+          handler: handleAdminChanged
+        - event: ListDataChanged(uint256,string,string,uint256)
+          handler: handleListDataChanged
+        - event: ListMembershipChanged(uint256,string,string,uint256)
+          handler: handleListMembershipChanged
+        - event: ListOwnershipChanged(uint256,string,string,uint256)
+          handler: handleListOwnershipChanged
+        - event: UserDataChanged(uint256,string,string,uint256)
+          handler: handleUserDataChanged
+        - event: ValidationDataChanged(uint256,string,string,uint256)
+          handler: handleValidationDataChanged
       file: ./src/l-2-storage.ts
