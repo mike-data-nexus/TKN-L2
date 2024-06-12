@@ -1,10 +1,27 @@
 import { Address, ethereum } from "@graphprotocol/graph-ts";
 import {
   AddressDataChanged,
+  ListDataChanged,
+  ListMembershipChanged,
+  ListOwnershipChanged,
   TokenDataChanged,
+  UserDataChanged,
+  ValidationDataChanged,
 } from "../generated/L2Storage/L2Storage";
-import { GetOrCreateChain, GetOrCreateToken } from "./utils";
-import { Token, TokenAddress, Chain } from "../generated/schema";
+import {
+  GetOrCreateChain,
+  GetOrCreateToken,
+  GetOrCreateList,
+  GetOrCreateUser,
+  GetOrCreateValidation,
+} from "./utils";
+import {
+  Token,
+  TokenAddress,
+  Chain,
+  ListMembership,
+  ListOwnership,
+} from "../generated/schema";
 
 export function handleAddressDataChanged(event: AddressDataChanged): void {
   let tokenAddress = TokenAddress.load(event.params.addressId.toString());
@@ -22,24 +39,8 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
   if (event.params.key.toString() == "address")
     tokenAddress.address = event.params.value;
   if (event.params.key.toString() == "chainID") {
-    let chain = GetOrCreateChain(event.params.value, event.block);
-    tokenAddress.chainID = chain.id;
-    if (event.params.key.toString() == "name") chain.name = event.params.value;
-    if (event.params.key.toString() == "symbol")
-      chain.symbol = event.params.value;
-    if (event.params.key.toString() == "version")
-      chain.version = event.params.value;
-    if (event.params.key.toString() == "url") chain.url = event.params.value;
-    if (event.params.key.toString() == "description")
-      chain.description = event.params.value;
-    if (event.params.key.toString() == "twitter")
-      chain.twitter = event.params.value;
-    if (event.params.key.toString() == "github")
-      chain.github = event.params.value;
-    if (event.params.key.toString() == "discord")
-      chain.discord = event.params.value;
-    if (event.params.key.toString() == "avatar")
-      chain.avatar = event.params.value;
+    tokenAddress.chainID = event.params.value;
+    GetOrCreateChain(event.params.value);
   }
   if (event.params.key.toString() == "chainVersion")
     tokenAddress.chainVersion = event.params.value;
@@ -101,4 +102,96 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
   token.timestamp = event.block.timestamp;
 
   token.save();
+}
+
+export function handleListDataChanged(event: ListDataChanged): void {
+  let list = GetOrCreateList(event.params.listId);
+
+  let key = event.params.key.toString();
+  if (event.params.key.toString() == "description")
+    list.description = event.params.value;
+  if (event.params.key.toString() == "name") list.name = event.params.value;
+  if (event.params.key.toString() == "owner") list.owner = event.params.value;
+  if (event.params.key.toString() == "listOwnership")
+    list.listOwnership._id = event.params.value;
+  if (event.params.key.toString() == "listMembership")
+    list.listMembership._id = event.params.value;
+
+  list.save();
+}
+
+export function handleUserDataChanged(event: UserDataChanged): void {
+  let user = GetOrCreateUser(event.params.userId);
+
+  let key = event.params.key.toString();
+  if (event.params.key.toString() == "name") user.name = event.params.value;
+  if (event.params.key.toString() == "address")
+    user.address = event.params.value;
+  if (event.params.key.toString() == "email") user.email = event.params.value;
+  if (event.params.key.toString() == "discord")
+    user.discord = event.params.value;
+  if (event.params.key.toString() == "twitter")
+    user.twitter = event.params.value;
+  if (event.params.key.toString() == "telegram")
+    user.telegram = event.params.value;
+  if (event.params.key.toString() == "github") user.github = event.params.value;
+  if (event.params.key.toString() == "email") user.email = event.params.value;
+  if (event.params.key.toString() == "listOwnership")
+    user.listOwnership._id = event.params.value;
+  if (event.params.key.toString() == "listMembership")
+    user.validation._id = event.params.value;
+
+  user.save();
+}
+
+export function handleValidationDataChanged(
+  event: ValidationDataChanged
+): void {
+  let validation = GetOrCreateValidation(event.params.validationId);
+
+  let key = event.params.key.toString();
+  if (event.params.key.toString() == "datakey")
+    validation.datakey = event.params.value;
+  if (event.params.key.toString() == "assertion")
+    validation.assertion = event.params.value;
+  if (event.params.key.toString() == "data")
+    validation.data = event.params.value;
+  if (event.params.key.toString() == "farcasterFID")
+    validation.farcasterFID = event.params.value;
+  if (event.params.key.toString() == "farcasterReputationScoreV1")
+    validation.farcasterReputationScoreV1 = event.params.value;
+  if (event.params.key.toString() == "farcasterCustodyAddress")
+    validation.farcasterCustodyAddress = event.params.value;
+  if (event.params.key.toString() == "farcasterVerifiedAddress")
+    validation.farcasterVerifiedAddress = event.params.value;
+  if (event.params.key.toString() == "rewardTransactionHash")
+    validation.rewardTransactionHash = event.params.value;
+
+  validation.save();
+}
+
+export function handleListMembershipChanged(
+  event: ListMembershipChanged
+): void {
+  let listMembership = ListMembership.load(
+    event.params.listMembershipId.toHexString()
+  );
+  if (!listMembership)
+    listMembership = new ListMembership(
+      event.params.listMembershipId.toHexString()
+    );
+
+  listMembership.save();
+}
+
+export function handleListOwnershipChanged(event: ListOwnershipChanged): void {
+  let listOwnership = ListOwnership.load(
+    event.params.listOwnershipId.toHexString()
+  );
+  if (!listOwnership)
+    listOwnership = new ListOwnership(
+      event.params.listOwnershipId.toHexString()
+    );
+
+  listOwnership.save();
 }

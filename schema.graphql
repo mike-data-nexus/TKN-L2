@@ -64,7 +64,6 @@ type User @entity {
 
 type List @entity {
   id: ID!
-  listId: List
   name: String
   description: String
   owner: String

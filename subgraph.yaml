@@ -24,10 +24,6 @@ dataSources:
           handler: handleAddressDataChanged
         - event: TokenDataChanged(uint256,string,string,uint256)
           handler: handleTokenDataChanged
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: AdminChanged(indexed address,indexed bool)
-          handler: handleAdminChanged
         - event: ListDataChanged(uint256,string,string,uint256)
           handler: handleListDataChanged
         - event: ListMembershipChanged(uint256,string,string,uint256)
