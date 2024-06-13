@@ -58,6 +58,7 @@ type User @entity {
   twitter: String
   telegram: String
   github: String
+  ##validationCount: BigInt!
   validation: [Validation!]! @derivedFrom(field: "userId")
   listOwnership: [ListOwnership!]! @derivedFrom(field: "userId")
 }
