@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: L2Storage
-    network: celo
+    network: datachain
     source:
-      address: "0x2e0d624A3D6d9E02C08Df30e3346E8B1350b53b5"
+      address: "0x20f1896490c9e77770184eB4cc23ecc2f3778eb6"
       abi: L2Storage
-      startBlock: 26067616
+      startBlock: 3458822
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
