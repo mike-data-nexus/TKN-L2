@@ -7,7 +7,10 @@
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ l2storage",
     "create-local": "graph create --node http://localhost:8020/ tkn-l2-v4",
     "remove-local": "graph remove --node http://localhost:8020/ tkn-l2-v4",
+    "create-datachain": "graph create --node https://graph-node-production.up.railway.app:8020 tkn-l2-v4",
+    "remove-datachain": "graph remove --node http://graph-dev.tkn.xyz:8020 tkn-l2-v4",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 tkn-l2-v4",
+    "deploy-datachain": "graph deploy --node http://graph-dev.tkn.xyz:8020 --ipfs http://localhost:5001 tkn-l2-v4",
     "test": "graph test"
   },
   "dependencies": {
