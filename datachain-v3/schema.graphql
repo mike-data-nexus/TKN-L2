@@ -1,0 +1,156 @@
+type Token @entity {
+    id: ID!
+    name: String
+    symbol: String
+    decimals: String
+    version: String
+    url: String
+    description: String
+    twitter: String
+    github: String
+    discord: String
+    avatar: String
+    globalNamespace: String
+    tokenSupply: String
+    circulatingSupply: String
+    forum: String
+    governance: String
+    snapshot: String
+    abi: String
+    git: String
+    farcaster: String
+    farcasterChannel: String
+    governanceContract: String
+    notice: String
+    dweb: String
+    isChainWithChainID: String
+    isChainWithCoinType: String
+    addresses: [Address!]! @derivedFrom(field: "tokenId")
+    timestamp: BigInt
+    validation: [Validation!]! @derivedFrom(field: "tokenId")
+    nonce: BigInt!
+    proposedUpdates: [ProposedUpdate!]! @derivedFrom(field: "token")
+}
+
+type Address @entity {
+    id: ID!
+    tokenId: Token
+    address: String
+    nonEVMAddress: String
+    coinTypeID: String
+    chainID: Chain
+    chainVersion: String
+    deprecated: Boolean
+    nonce: BigInt!
+    validation: [Validation!]! @derivedFrom(field: "addressId")
+}
+
+type Chain @entity {
+    id: ID!
+    tokens: [Address!]! @derivedFrom(field: "chainID")
+    timestamp: BigInt
+}
+
+type User @entity {
+    id: ID!
+    name: String
+    address: String
+    email: String
+    discord: String
+    twitter: String
+    telegram: String
+    github: String
+    validation: [Validation!]! @derivedFrom(field: "userId")
+    listOwnership: [ListOwnership!]! @derivedFrom(field: "userId")
+    nonce: BigInt!
+}
+
+type List @entity {
+    id: ID!
+    name: String
+    description: String
+    owner: String
+    autopublish: Boolean
+    listOwnership: [ListOwnership!]! @derivedFrom(field: "listId")
+    handle: String
+    hash: String
+    isPrimaryListForToken: Boolean
+    nonce: BigInt!
+    tokenIds: [BigInt!]
+    creator: Bytes
+}
+
+type ListOwnership @entity {
+    id: String!
+    listId: List
+    userId: User
+}
+
+type Validation @entity {
+    id: ID!
+    tokenId: Token
+    addressId: Address
+    userId: User
+    datakey: String
+    assertion: String
+    data: String
+    farcasterFID: String
+    farcasterReputationScoreV1: String
+    farcasterCustodyAddress: String
+    farcasterVerifiedAddress: String
+    rewardTransactionHash: String
+    nonce: BigInt!
+}
+
+type ProposedUpdate @entity {
+    id: ID!
+    token: Token!
+    updateId: BigInt!
+    approvalScore: BigInt!
+    isApplied: Boolean!
+    keyValues: [KeyValue!]! @derivedFrom(field: "proposedUpdate")
+}
+
+type KeyValue @entity {
+    id: ID!
+    key: String!
+    value: String!
+    token: Token
+    address: Address
+    list: List
+    user: User
+    validation: Validation
+    proposedUpdate: ProposedUpdate
+}
+
+type Admin @entity {
+    id: ID!
+    address: Bytes!
+    isAdmin: Boolean!
+}
+
+type Manager @entity {
+    id: ID!
+    address: Bytes!
+    isManager: Boolean!
+}
+
+type ApprovalPower @entity {
+    id: ID!
+    address: Bytes!
+    power: BigInt!
+}
+
+type ApprovalThreshold @entity {
+    id: ID!
+    threshold: BigInt!
+}
+
+type Sublist @entity {
+    id: ID!
+    name: String
+    description: String
+    listHash: String
+    nonce: BigInt!
+    owner: Bytes
+}

@@ -1,0 +1,150 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: L2StorageManager
+    network: sepolia
+    source:
+      address: "0xEf6d57A70295680F3d74469227270Fa22E3915B0"
+      abi: L2StorageManager
+      startBlock: 3740
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Admin
+        - Manager
+        - ApprovalPower
+        - ApprovalThreshold
+      abis:
+        - name: L2StorageManager
+          file: ./abis/L2StorageManager.json
+      eventHandlers:
+        - event: AdminChanged(indexed address,bool)
+          handler: handleAdminChanged
+        - event: ManagerChanged(indexed address,bool)
+          handler: handleManagerChanged
+        - event: ApprovalPowerChanged(indexed address,uint256)
+          handler: handleApprovalPowerChanged
+        - event: ApprovalThresholdChanged(uint256)
+          handler: handleApprovalThresholdChanged
+      file: ./src/manager_mapping.ts
+
+  - kind: ethereum
+    name: AddressStorage
+    network: sepolia
+    source:
+      address: "0x20f1896490c9e77770184eB4cc23ecc2f3778eb6"
+      abi: AddressStorage
+      startBlock: 3143777
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Address
+      abis:
+        - name: AddressStorage
+          file: ./abis/AddressStorage.json
+      eventHandlers:
+        - event: AddressDataChanged(uint256,string,string,uint256)
+          handler: handleAddressDataChanged
+      file: ./src/address_mapping.ts
+
+  - kind: ethereum
+    name: ListStorage
+    network: sepolia
+    source:
+      address: "0xB6DADF0709068271Fa2B404C257B08364579Ef1d"
+      abi: ListStorage
+      startBlock: 3143777
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - List
+        - Sublist
+      abis:
+        - name: ListStorage
+          file: ./abis/ListStorage.json
+      eventHandlers:
+        - event: ListCreated(indexed uint256,indexed address,string,string,string)
+          handler: handleListCreated
+        - event: ListUpdated(indexed uint256,string,string,uint256)
+          handler: handleListUpdated
+        - event: SublistCreated(indexed uint256,indexed address,string,string)
+          handler: handleSublistCreated
+        - event: SublistUpdated(indexed uint256,string,string,uint256)
+          handler: handleSublistUpdated
+      file: ./src/list_mapping.ts
+
+  - kind: ethereum
+    name: TokenStorage
+    network: sepolia
+    source:
+      address: "0xcc1571d3A4b197Ea8fB67B527E68eE7868cFe52C"
+      abi: TokenStorage
+      startBlock: 3143777
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - ProposedUpdate
+      abis:
+        - name: TokenStorage
+          file: ./abis/TokenStorage.json
+      eventHandlers:
+        - event: TokenDataChanged(indexed uint256,string,string,uint256)
+          handler: handleTokenDataChanged
+        - event: UpdateProposed(indexed uint256,indexed uint256,string,string,uint256)
+          handler: handleUpdateProposed
+        - event: UpdateApproved(indexed uint256,indexed uint256)
+          handler: handleUpdateApproved
+      file: ./src/token_mapping.ts
+
+  - kind: ethereum
+    name: UserStorage
+    network: sepolia
+    source:
+      address: "0x381CaFACA39Abe417b179b1Ab276b25a4b26b57B"
+      abi: UserStorage
+      startBlock: 3143777
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: UserStorage
+          file: ./abis/UserStorage.json
+      eventHandlers:
+        - event: UserDataChanged(uint256,string,string,uint256)
+          handler: handleUserDataChanged
+      file: ./src/user_mapping.ts
+
+  - kind: ethereum
+    name: ValidationStorage
+    network: sepolia
+    source:
+      address: "0x533F5A39Ca270E2ad329750e799Fc72DEF72F1bA"
+      abi: ValidationStorage
+      startBlock: 3143777
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Validation
+      abis:
+        - name: ValidationStorage
+          file: ./abis/ValidationStorage.json
+      eventHandlers:
+        - event: ValidationDataChanged(uint256,string,string,uint256)
+          handler: handleValidationDataChanged
+      file: ./src/validation_mapping.ts
