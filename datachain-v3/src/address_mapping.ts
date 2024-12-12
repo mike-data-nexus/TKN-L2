@@ -18,9 +18,10 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
     keyValue.save()
 
     // Update specific fields if they match
-    if (event.params.key == "tokenId") address.tokenId = event.params.value
+    if (event.params.key == "tokenID") address.tokenID = event.params.value
+    if (event.params.key == "symbol") address.symbol = event.params.value
     if (event.params.key == "chainID") address.chainID = event.params.value
-    if (event.params.key == "address") address.address = event.params.value
+    if (event.params.key == "address") address.tokenAddress = event.params.value
     if (event.params.key == "nonEVMAddress") address.nonEVMAddress = event.params.value
     if (event.params.key == "coinTypeID") address.coinTypeID = event.params.value
     if (event.params.key == "chainVersion") address.chainVersion = event.params.value

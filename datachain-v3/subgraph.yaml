@@ -6,9 +6,9 @@ dataSources:
     name: L2StorageManager
     network: datachain-sepolia
     source:
-      address: "0xEf6d57A70295680F3d74469227270Fa22E3915B0"
+      address: "0x71cE95e8831589b29a12d58A1768029E1b7aa882"
       abi: L2StorageManager
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -36,9 +36,9 @@ dataSources:
     name: AddressStorage
     network: datachain-sepolia
     source:
-      address: "0x20f1896490c9e77770184eB4cc23ecc2f3778eb6"
+      address: "0x3Cc7861C44d5781b065753F5caE769Bdfcd90b0A"
       abi: AddressStorage
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -57,9 +57,9 @@ dataSources:
     name: ListStorage
     network: datachain-sepolia
     source:
-      address: "0xB6DADF0709068271Fa2B404C257B08364579Ef1d"
+      address: "0xD1dcc73229f3208E5aD989fB5600BaC681b1b5c3"
       abi: ListStorage
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -85,9 +85,9 @@ dataSources:
     name: TokenStorage
     network: datachain-sepolia
     source:
-      address: "0xcc1571d3A4b197Ea8fB67B527E68eE7868cFe52C"
+      address: "0x06EADDb0e0B53EDdDB8Ea8A9D31bf758147347C0"
       abi: TokenStorage
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -111,9 +111,9 @@ dataSources:
     name: UserStorage
     network: datachain-sepolia
     source:
-      address: "0x381CaFACA39Abe417b179b1Ab276b25a4b26b57B"
+      address: "0xe78809FdE5C875Cdd5318d66412b6856a24B206e"
       abi: UserStorage
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -132,9 +132,9 @@ dataSources:
     name: ValidationStorage
     network: datachain-sepolia
     source:
-      address: "0x533F5A39Ca270E2ad329750e799Fc72DEF72F1bA"
+      address: "0xb15BCA27e818CFE80279dF4dEDebE210cb6099D1"
       abi: ValidationStorage
-      startBlock: 3143777
+      startBlock: 3705562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

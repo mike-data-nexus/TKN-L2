@@ -201,7 +201,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -234,7 +234,7 @@
             },
             {
                 "internalType": "uint256[]",
-                "name": "tokenIds",
+                "name": "tokenIDs",
                 "type": "uint256[]"
             },
             {
@@ -267,7 +267,7 @@
             },
             {
                 "internalType": "uint256[]",
-                "name": "tokenIds",
+                "name": "tokenIDs",
                 "type": "uint256[]"
             }
         ],
@@ -336,7 +336,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -436,7 +436,7 @@
             },
             {
                 "internalType": "uint256[]",
-                "name": "tokenIds",
+                "name": "tokenIDs",
                 "type": "uint256[]"
             }
         ],
@@ -524,7 +524,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -548,7 +548,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -765,7 +765,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -1000,7 +1000,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {
@@ -1023,7 +1023,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "tokenId",
+                "name": "tokenID",
                 "type": "uint256"
             },
             {

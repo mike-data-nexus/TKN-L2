@@ -25,16 +25,16 @@ type Token @entity {
     dweb: String
     isChainWithChainID: String
     isChainWithCoinType: String
-    addresses: [Address!]! @derivedFrom(field: "tokenId")
+    addresses: [Address!]! @derivedFrom(field: "tokenID")
     timestamp: BigInt
-    validation: [Validation!]! @derivedFrom(field: "tokenId")
+    validation: [Validation!]! @derivedFrom(field: "tokenID")
     nonce: BigInt!
     proposedUpdates: [ProposedUpdate!]! @derivedFrom(field: "token")
 }
 
 type Address @entity {
     id: ID!
-    tokenId: Token
+    tokenID: Token
     address: String
     nonEVMAddress: String
     coinTypeID: String
@@ -76,7 +76,7 @@ type List @entity {
     hash: String
     isPrimaryListForToken: Boolean
     nonce: BigInt!
-    tokenIds: [BigInt!]
+    tokenIDs: [BigInt!]
     creator: Bytes
 }
 
@@ -88,7 +88,7 @@ type ListOwnership @entity {
 
 type Validation @entity {
     id: ID!
-    tokenId: Token
+    tokenID: Token
     addressId: Address
     userId: User
     datakey: String

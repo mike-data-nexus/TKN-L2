@@ -7,9 +7,9 @@ import {
 import { Token, ProposedUpdate, KeyValue } from "../generated/schema"
 
 export function handleTokenDataChanged(event: TokenDataChanged): void {
-    let token = Token.load(event.params.tokenId.toString())
+    let token = Token.load(event.params.tokenID.toString())
     if (!token) {
-        token = new Token(event.params.tokenId.toString())
+        token = new Token(event.params.tokenID.toString())
         token.nonce = BigInt.fromI32(0)
         token.timestamp = event.block.timestamp
     }
@@ -61,12 +61,12 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
 }
 
 export function handleUpdateProposed(event: UpdateProposed): void {
-    let proposedUpdateId = event.params.tokenId.toString() + "-" + event.params.updateId.toString()
+    let proposedUpdateId = event.params.tokenID.toString() + "-" + event.params.updateId.toString()
     let proposedUpdate = ProposedUpdate.load(proposedUpdateId)
 
     if (!proposedUpdate) {
         proposedUpdate = new ProposedUpdate(proposedUpdateId)
-        proposedUpdate.token = event.params.tokenId.toString()
+        proposedUpdate.token = event.params.tokenID.toString()
         proposedUpdate.updateId = event.params.updateId
         proposedUpdate.approvalScore = BigInt.fromI32(0)
         proposedUpdate.isApplied = false
@@ -84,7 +84,7 @@ export function handleUpdateProposed(event: UpdateProposed): void {
 }
 
 export function handleUpdateApproved(event: UpdateApproved): void {
-    let proposedUpdateId = event.params.tokenId.toString() + "-" + event.params.updateId.toString()
+    let proposedUpdateId = event.params.tokenID.toString() + "-" + event.params.updateId.toString()
     let proposedUpdate = ProposedUpdate.load(proposedUpdateId)
 
     if (proposedUpdate) {
