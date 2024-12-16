@@ -3,9 +3,10 @@ import {
     AdminChanged,
     ManagerChanged,
     ApprovalPowerChanged,
-    ApprovalThresholdChanged
+    ApprovalThresholdChanged,
+    CrossChainAdapterChanged
 } from "../generated/L2StorageManager/L2StorageManager"
-import { Admin, Manager, ApprovalPower, ApprovalThreshold, User } from "../generated/schema"
+import { Admin, Manager, ApprovalPower, ApprovalThreshold, User, CrossChainAdapter } from "../generated/schema"
 
 export function handleAdminChanged(event: AdminChanged): void {
     let adminId = event.params.account.toHexString()
@@ -59,4 +60,14 @@ export function handleApprovalThresholdChanged(event: ApprovalThresholdChanged):
     }
     approvalThreshold.threshold = event.params.newThreshold
     approvalThreshold.save()
+}
+
+export function handleCrossChainAdapterChanged(event: CrossChainAdapterChanged): void {
+    let crossChainAdapterId = event.params.newAdapter.toHexString()
+    let crossChainAdapter = CrossChainAdapter.load(crossChainAdapterId)
+    if (!crossChainAdapter) {
+        crossChainAdapter = new CrossChainAdapter(crossChainAdapterId)
+        crossChainAdapter.address = event.params.newAdapter
+        crossChainAdapter.save()
+    }
 }

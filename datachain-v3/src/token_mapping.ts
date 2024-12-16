@@ -1,4 +1,4 @@
-import { BigInt, Bytes } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes, log } from "@graphprotocol/graph-ts"
 import {
     TokenDataChanged,
     UpdateProposed,
@@ -7,14 +7,15 @@ import {
 import { Token, ProposedUpdate, KeyValue } from "../generated/schema"
 
 export function handleTokenDataChanged(event: TokenDataChanged): void {
-    let token = Token.load(event.params.tokenID.toString())
+    let token = Token.load(event.params.tokenId.toString())
     if (!token) {
-        token = new Token(event.params.tokenID.toString())
+        token = new Token(event.params.tokenId.toString())
         token.nonce = BigInt.fromI32(0)
         token.timestamp = event.block.timestamp
     }
 
     token.nonce = event.params.nonce
+    token.timestamp = event.block.timestamp
 
     let key = event.params.key
     let value = event.params.value
@@ -53,20 +54,22 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
     let keyValue = KeyValue.load(keyValueId)
     if (!keyValue) {
         keyValue = new KeyValue(keyValueId)
+        keyValue.key = key
+        keyValue.value = value
+        keyValue.token = token.id
+    } else {
+        keyValue.value = value
     }
-    keyValue.key = key
-    keyValue.value = value
-    keyValue.token = token.id
     keyValue.save()
 }
 
 export function handleUpdateProposed(event: UpdateProposed): void {
-    let proposedUpdateId = event.params.tokenID.toString() + "-" + event.params.updateId.toString()
+    let proposedUpdateId = event.params.tokenId.toString().concat("-").concat(event.params.updateId.toString())
     let proposedUpdate = ProposedUpdate.load(proposedUpdateId)
 
     if (!proposedUpdate) {
         proposedUpdate = new ProposedUpdate(proposedUpdateId)
-        proposedUpdate.token = event.params.tokenID.toString()
+        proposedUpdate.token = event.params.tokenId.toString()
         proposedUpdate.updateId = event.params.updateId
         proposedUpdate.approvalScore = BigInt.fromI32(0)
         proposedUpdate.isApplied = false
@@ -75,7 +78,7 @@ export function handleUpdateProposed(event: UpdateProposed): void {
     proposedUpdate.save()
 
     // Create KeyValue for the proposed update
-    let keyValueId = proposedUpdateId + "-" + event.params.key + "-" + event.params.index.toString()
+    let keyValueId = proposedUpdateId.concat("-").concat(event.params.key).concat("-").concat(event.params.index.toString())
     let keyValue = new KeyValue(keyValueId)
     keyValue.key = event.params.key
     keyValue.value = event.params.value
@@ -84,11 +87,15 @@ export function handleUpdateProposed(event: UpdateProposed): void {
 }
 
 export function handleUpdateApproved(event: UpdateApproved): void {
-    let proposedUpdateId = event.params.tokenID.toString() + "-" + event.params.updateId.toString()
+    let proposedUpdateId = event.params.tokenId.toString().concat("-").concat(event.params.updateId.toString())
     let proposedUpdate = ProposedUpdate.load(proposedUpdateId)
-
-    if (proposedUpdate) {
-        proposedUpdate.isApplied = true
-        proposedUpdate.save()
+    if (!proposedUpdate) {
+        log.warning('Update {} not found for token {}', [
+            event.params.tokenId.toString(),
+            event.params.updateId.toString()
+        ])
+        return
     }
+    proposedUpdate.isApplied = true
+    proposedUpdate.save()
 }

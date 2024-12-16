@@ -6,21 +6,28 @@ dataSources:
     name: L2StorageManager
     network: datachain-sepolia
     source:
-      address: "0x71cE95e8831589b29a12d58A1768029E1b7aa882"
+      address: "0x7b02d739D95758F09dDc7e44FA951cd45D97247A"
       abi: L2StorageManager
-      startBlock: 3705562
+      startBlock: 5627245
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Admin
-        - Manager
-        - ApprovalPower
-        - ApprovalThreshold
+        - Token
+        - Address
+        - TokenData
+        - AddressData
+        - TokenUpdate
+        - UpdateData
+        - UpdateApproval
       abis:
         - name: L2StorageManager
           file: ./abis/L2StorageManager.json
+        - name: TokenStorage
+          file: ./abis/TokenStorage.json
+        - name: AddressStorage
+          file: ./abis/AddressStorage.json
       eventHandlers:
         - event: AdminChanged(indexed address,bool)
           handler: handleAdminChanged
@@ -30,71 +37,25 @@ dataSources:
           handler: handleApprovalPowerChanged
         - event: ApprovalThresholdChanged(uint256)
           handler: handleApprovalThresholdChanged
+        - event: CrossChainAdapterChanged(address)
+          handler: handleCrossChainAdapterChanged
       file: ./src/manager_mapping.ts
-
-  - kind: ethereum
-    name: AddressStorage
-    network: datachain-sepolia
-    source:
-      address: "0x3Cc7861C44d5781b065753F5caE769Bdfcd90b0A"
-      abi: AddressStorage
-      startBlock: 3705562
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - Address
-      abis:
-        - name: AddressStorage
-          file: ./abis/AddressStorage.json
-      eventHandlers:
-        - event: AddressDataChanged(uint256,string,string,uint256)
-          handler: handleAddressDataChanged
-      file: ./src/address_mapping.ts
-
-  - kind: ethereum
-    name: ListStorage
-    network: datachain-sepolia
-    source:
-      address: "0xD1dcc73229f3208E5aD989fB5600BaC681b1b5c3"
-      abi: ListStorage
-      startBlock: 3705562
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.7
-      language: wasm/assemblyscript
-      entities:
-        - List
-        - Sublist
-      abis:
-        - name: ListStorage
-          file: ./abis/ListStorage.json
-      eventHandlers:
-        - event: ListCreated(indexed uint256,indexed address,string,string,string)
-          handler: handleListCreated
-        - event: ListUpdated(indexed uint256,string,string,uint256)
-          handler: handleListUpdated
-        - event: SublistCreated(indexed uint256,indexed address,string,string)
-          handler: handleSublistCreated
-        - event: SublistUpdated(indexed uint256,string,string,uint256)
-          handler: handleSublistUpdated
-      file: ./src/list_mapping.ts
 
   - kind: ethereum
     name: TokenStorage
     network: datachain-sepolia
     source:
-      address: "0x06EADDb0e0B53EDdDB8Ea8A9D31bf758147347C0"
+      address: "0xA0972Cc7E02908E974D43817a0Dfaaf2Fece62dB"
       abi: TokenStorage
-      startBlock: 3705562
+      startBlock: 5627245
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - Token
-        - ProposedUpdate
+        - TokenData
+        - TokenUpdate
       abis:
         - name: TokenStorage
           file: ./abis/TokenStorage.json
@@ -106,45 +67,55 @@ dataSources:
         - event: UpdateApproved(indexed uint256,indexed uint256)
           handler: handleUpdateApproved
       file: ./src/token_mapping.ts
-
   - kind: ethereum
-    name: UserStorage
+    name: AddressStorage
     network: datachain-sepolia
     source:
-      address: "0xe78809FdE5C875Cdd5318d66412b6856a24B206e"
-      abi: UserStorage
-      startBlock: 3705562
+      address: "0x10b21FEf9FfFF80d10089417340D4e647cd4B5AA"
+      abi: AddressStorage
+      startBlock: 5627245
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - User
+        - Address
+        - AddressData
       abis:
-        - name: UserStorage
-          file: ./abis/UserStorage.json
+        - name: AddressStorage
+          file: ./abis/AddressStorage.json
       eventHandlers:
-        - event: UserDataChanged(uint256,string,string,uint256)
-          handler: handleUserDataChanged
-      file: ./src/user_mapping.ts
+        - event: AddressDataChanged(uint256,string,string,uint256)
+          handler: handleAddressDataChanged
+        - event: AddressCreated(indexed uint256,indexed uint256,indexed string,string,string,string)
+          handler: handleAddressCreated
+      file: ./src/address_mapping.ts
 
   - kind: ethereum
-    name: ValidationStorage
+    name: ListStorage
     network: datachain-sepolia
     source:
-      address: "0xb15BCA27e818CFE80279dF4dEDebE210cb6099D1"
-      abi: ValidationStorage
-      startBlock: 3705562
+      address: "0x3bCbffEf4A5fA2124B20D87bDA5A3D09912611c7"
+      abi: ListStorage
+      startBlock: 5627245
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Validation
+        - List
+        - Sublist
       abis:
-        - name: ValidationStorage
-          file: ./abis/ValidationStorage.json
+        - name: ListStorage
+          file: ./abis/ListStorage.json
       eventHandlers:
-        - event: ValidationDataChanged(uint256,string,string,uint256)
-          handler: handleValidationDataChanged
-      file: ./src/validation_mapping.ts
+        - event: ListCreated(indexed uint256,indexed address,string,string,string)  
+          handler: handleListCreated
+        - event: ListUpdated(indexed uint256,string,string,uint256)  
+          handler: handleListUpdated
+        - event: SublistCreated(indexed uint256,indexed address,string,string)
+          handler: handleSublistCreated
+        - event: SublistUpdated(indexed uint256,string,string,uint256)
+          handler: handleSublistUpdated
+      file: ./src/list_mapping.ts
+

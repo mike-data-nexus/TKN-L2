@@ -34,8 +34,9 @@ type Token @entity {
 
 type Address @entity {
     id: ID!
+    addressID: BigInt
     tokenID: Token
-    address: String
+    tokenAddress: String
     nonEVMAddress: String
     coinTypeID: String
     chainID: Chain
@@ -43,6 +44,8 @@ type Address @entity {
     deprecated: Boolean
     nonce: BigInt!
     validation: [Validation!]! @derivedFrom(field: "addressId")
+    createdAt: BigInt!
+    updatedAt: BigInt!
 }
 
 type Chain @entity {
@@ -121,6 +124,7 @@ type KeyValue @entity {
     user: User
     validation: Validation
     proposedUpdate: ProposedUpdate
+    timestamp: BigInt
 }
 
 type Admin @entity {
@@ -153,4 +157,18 @@ type Sublist @entity {
     listHash: String
     nonce: BigInt!
     owner: Bytes
+}
+
+type SublistData @entity {
+    id: ID!
+    sublist: Sublist!
+    key: String!
+    value: String!
+    nonce: BigInt!
+    timestamp: BigInt!
+}
+
+type CrossChainAdapter @entity {
+    id: ID!
+    address: Bytes!
 }

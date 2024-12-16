@@ -32,7 +32,7 @@ type Token @entity {
 
 type TokenAddress @entity {
   id: ID!
-  tokenId: Token
+  tokenID: Token
   address: String
   nonEVMAddress: String
   coinTypeID: String
@@ -87,7 +87,7 @@ type ListOwnership @entity {
 
 type Validation @entity {
   id: ID!
-  tokenId: Token
+  tokenID: Token
   addressId: TokenAddress
   userId: User
   datakey: String
