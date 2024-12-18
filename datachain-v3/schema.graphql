@@ -36,6 +36,7 @@ type Address @entity {
     id: ID!
     addressID: BigInt
     tokenID: Token
+    symbol: String
     tokenAddress: String
     nonEVMAddress: String
     coinTypeID: String
@@ -126,6 +127,7 @@ type KeyValue @entity {
     proposedUpdate: ProposedUpdate
     timestamp: BigInt
 }
+
 
 type Admin @entity {
     id: ID!
