@@ -2,36 +2,120 @@ specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
-  - kind: ethereum/contract
-    name: L2Storage
-    network: celo
+  - kind: ethereum
+    name: L2StorageManager
+    network: datachain-sepolia
     source:
-      address: "0x2e0d624A3D6d9E02C08Df30e3346E8B1350b53b5"
-      abi: L2Storage
-      startBlock: 26067616
+      address: "0x7b02d739D95758F09dDc7e44FA951cd45D97247A"
+      abi: L2StorageManager
+      startBlock: 5627255
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AddressDataChanged
-        - TokenDataChanged
+        - Token
+        - Address
+        - TokenData
+        - AddressData
+        - TokenUpdate
+        - UpdateData
+        - UpdateApproval
       abis:
-        - name: L2Storage
-          file: ./abis/L2Storage.json
+        - name: L2StorageManager
+          file: ./abis/L2StorageManager.json
+        - name: TokenStorage
+          file: ./abis/TokenStorage.json
+        - name: AddressStorage
+          file: ./abis/AddressStorage.json
+      eventHandlers:
+        - event: AdminChanged(indexed address,bool)
+          handler: handleAdminChanged
+        - event: ManagerChanged(indexed address,bool)
+          handler: handleManagerChanged
+        - event: ApprovalPowerChanged(indexed address,uint256)
+          handler: handleApprovalPowerChanged
+        - event: ApprovalThresholdChanged(uint256)
+          handler: handleApprovalThresholdChanged
+        - event: CrossChainAdapterChanged(address)
+          handler: handleCrossChainAdapterChanged
+      file: ./src/manager_mapping.ts
+
+  - kind: ethereum
+    name: TokenStorage
+    network: datachain-sepolia
+    source:
+      address: "0xA0972Cc7E02908E974D43817a0Dfaaf2Fece62dB"
+      abi: TokenStorage
+      startBlock: 5627255
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - TokenData
+        - TokenUpdate
+      abis:
+        - name: TokenStorage
+          file: ./abis/TokenStorage.json
+      eventHandlers:
+        - event: TokenDataChanged(indexed uint256,string,string,uint256)
+          handler: handleTokenDataChanged
+        - event: UpdateProposed(indexed uint256,indexed uint256,string,string,uint256)
+          handler: handleUpdateProposed
+        - event: UpdateApproved(indexed uint256,indexed uint256)
+          handler: handleUpdateApproved
+      file: ./src/token_mapping.ts
+  - kind: ethereum
+    name: AddressStorage
+    network: datachain-sepolia
+    source:
+      address: "0x10b21FEf9FfFF80d10089417340D4e647cd4B5AA"
+      abi: AddressStorage
+      startBlock: 5627245
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Address
+        - AddressData
+      abis:
+        - name: AddressStorage
+          file: ./abis/AddressStorage.json
       eventHandlers:
         - event: AddressDataChanged(uint256,string,string,uint256)
           handler: handleAddressDataChanged
-        - event: TokenDataChanged(uint256,string,string,uint256)
-          handler: handleTokenDataChanged
-        - event: ListDataChanged(uint256,string,string,uint256)
-          handler: handleListDataChanged
-        - event: ListMembershipChanged(uint256,string,string,uint256)
-          handler: handleListMembershipChanged
-        - event: ListOwnershipChanged(uint256,string,string,uint256)
-          handler: handleListOwnershipChanged
-        - event: UserDataChanged(uint256,string,string,uint256)
-          handler: handleUserDataChanged
-        - event: ValidationDataChanged(uint256,string,string,uint256)
-          handler: handleValidationDataChanged
-      file: ./src/l-2-storage.ts
+        - event: AddressCreated(indexed uint256,indexed uint256,indexed string,string,string,string)
+          handler: handleAddressCreated
+      file: ./src/address_mapping.ts
+
+  - kind: ethereum
+    name: ListStorage
+    network: datachain-sepolia
+    source:
+      address: "0x3bCbffEf4A5fA2124B20D87bDA5A3D09912611c7"
+      abi: ListStorage
+      startBlock: 5627255
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - List
+        - Sublist
+      abis:
+        - name: ListStorage
+          file: ./abis/ListStorage.json
+      eventHandlers:
+        - event: ListCreated(indexed uint256,indexed address,string,string,string)  
+          handler: handleListCreated
+        - event: ListUpdated(indexed uint256,string,string,uint256)  
+          handler: handleListUpdated
+        - event: SublistCreated(indexed uint256,indexed address,string,string)
+          handler: handleSublistCreated
+        - event: SublistUpdated(indexed uint256,string,string,uint256)
+          handler: handleSublistUpdated
+      file: ./src/list_mapping.ts
+
