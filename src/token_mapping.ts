@@ -10,6 +10,7 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
     let token = Token.load(event.params.tokenId.toString())
     if (!token) {
         token = new Token(event.params.tokenId.toString())
+        token.tokenIndex = event.params.tokenId
         token.nonce = BigInt.fromI32(0)
         token.timestamp = event.block.timestamp
     }
@@ -44,7 +45,7 @@ export function handleTokenDataChanged(event: TokenDataChanged): void {
     else if (key == "governanceContract") token.governanceContract = value
     else if (key == "notice") token.notice = value
     else if (key == "dweb") token.dweb = value
-    else if (key == "isChainWithChainID") token.isChainWithChainID = value
+    else if (key == "isChainWithChainId") token.isChainWithChainID = value
     else if (key == "isChainWithCoinType") token.isChainWithCoinType = value
 
     token.save()

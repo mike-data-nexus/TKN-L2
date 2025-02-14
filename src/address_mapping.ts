@@ -8,7 +8,7 @@ export function handleAddressCreated(event: AddressCreated): void {
     // Link to Token
     let token = Token.load(event.params.tokenID.toString())
     if (token) {
-        address.tokenID = token.id
+        address.tokenId = token.id
     }
 
     // Link to Chain
@@ -18,10 +18,10 @@ export function handleAddressCreated(event: AddressCreated): void {
         chain.timestamp = event.block.timestamp
         chain.save()
     }
-    address.chainID = chain.id
+    address.chainId = chain.id
 
     // Set initial values
-    address.addressID = event.params.addressID
+    address.addressId = event.params.addressID
     address.tokenAddress = event.params.tokenAddress
     address.nonEVMAddress = event.params.nonEVMAddress
     address.nonce = BigInt.fromI32(0)
@@ -51,7 +51,7 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
     } else if (event.params.key == "tokenID") {
         let token = Token.load(event.params.value)
         if (token) {
-            address.tokenID = token.id
+            address.tokenId = token.id
         }
     } else if (event.params.key == "chainID") {
         let chain = Chain.load(event.params.value)
@@ -60,9 +60,9 @@ export function handleAddressDataChanged(event: AddressDataChanged): void {
             chain.timestamp = event.block.timestamp
             chain.save()
         }
-        address.chainID = chain.id
+        address.chainId = chain.id
     } else if (event.params.key == "coinTypeID") {
-        address.coinTypeID = event.params.value
+        address.coinTypeId = event.params.value
     } else if (event.params.key == "chainVersion") {
         address.chainVersion = event.params.value
     } else if (event.params.key == "deprecated") {

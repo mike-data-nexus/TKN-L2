@@ -3,9 +3,9 @@ import { UserDataChanged } from "../generated/UserStorage/UserStorage"
 import { User, KeyValue } from "../generated/schema"
 
 export function handleUserDataChanged(event: UserDataChanged): void {
-    let user = User.load(event.params.userId.toString())
+    let user = User.load(event.params.userID.toString())
     if (!user) {
-        user = new User(event.params.userId.toString())
+        user = new User(event.params.userID.toString())
     }
 
     user.nonce = event.params.nonce
@@ -24,8 +24,8 @@ export function handleUserDataChanged(event: UserDataChanged): void {
     user.save()
 
     // Create a KeyValue entity for this data change
-    let keyValueId = user.id + "-" + key
-    let keyValue = new KeyValue(keyValueId)
+    let keyValueID = user.id + "-" + key
+    let keyValue = new KeyValue(keyValueID)
     keyValue.key = key
     keyValue.value = value
     keyValue.user = user.id

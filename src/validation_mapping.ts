@@ -3,9 +3,9 @@ import { ValidationDataChanged } from "../generated/ValidationStorage/Validation
 import { Validation, KeyValue } from "../generated/schema"
 
 export function handleValidationDataChanged(event: ValidationDataChanged): void {
-    let validation = Validation.load(event.params.validationId.toString())
+    let validation = Validation.load(event.params.validationID.toString())
     if (!validation) {
-        validation = new Validation(event.params.validationId.toString())
+        validation = new Validation(event.params.validationID.toString())
     }
 
     validation.nonce = event.params.nonce
@@ -25,8 +25,8 @@ export function handleValidationDataChanged(event: ValidationDataChanged): void 
     validation.save()
 
     // Create a KeyValue entity for this data change
-    let keyValueId = validation.id + "-" + key
-    let keyValue = new KeyValue(keyValueId)
+    let keyValueID = validation.id + "-" + key
+    let keyValue = new KeyValue(keyValueID)
     keyValue.key = key
     keyValue.value = value
     keyValue.validation = validation.id
